@@ -355,7 +355,7 @@ def _reverse_place_name(api_key: str, lat: float, lon: float, timeout: float) ->
 
 def _require_api_key(api_key: str) -> None:
     if not api_key.strip():
-        raise WeatherError("OPENWEATHER_API_KEY が未設定です。.env にキーを入れてください。")
+        raise WeatherError("OPENWEATHER_API_KEY が未設定です。")
 
 
 def _get_json(url: str, params: dict[str, Any], timeout: float) -> Any:

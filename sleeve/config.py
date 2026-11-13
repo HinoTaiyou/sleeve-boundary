@@ -19,11 +19,25 @@ class AppConfig:
     db_path: Path
 
 
+def _setting(name: str, default: str = "") -> str:
+    value = os.getenv(name, "").strip()
+    if value:
+        return value
+    try:
+        import streamlit as st
+
+        raw = st.secrets[name]
+    except Exception:
+        return default
+    text = str(raw).strip()
+    return text or default
+
+
 def load_config() -> AppConfig:
     load_dotenv(ROOT / ".env", override=True)
     return AppConfig(
-        api_key=os.getenv("OPENWEATHER_API_KEY", "").strip(),
-        city=os.getenv("OPENWEATHER_CITY", "Tokyo").strip() or "Tokyo",
-        country=os.getenv("OPENWEATHER_COUNTRY", "JP").strip(),
+        api_key=_setting("OPENWEATHER_API_KEY"),
+        city=_setting("OPENWEATHER_CITY", "Tokyo") or "Tokyo",
+        country=_setting("OPENWEATHER_COUNTRY", "JP"),
         db_path=ROOT / "data" / "sleeve.db",
     )

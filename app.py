@@ -1231,7 +1231,7 @@ def _refresh_weather(conn, config, today: str, profile) -> None:
 
 def _render_today(conn, config, today: str, row, state, profile, count: int) -> None:
     if not config.api_key:
-        st.warning(".env に OPENWEATHER_API_KEY を設定すると、気象を取得できます。")
+        st.warning("OPENWEATHER_API_KEY を入れると、気象を取得できます。")
     if row is None:
         st.info("今日の気象はまだありません。")
         if st.button("現在地の気象を取得", disabled=not config.api_key):
